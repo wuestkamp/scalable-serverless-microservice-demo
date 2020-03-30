@@ -37,7 +37,7 @@ output "dynamodb-operation-service-stream-label" {
 
 
 output "api_gateway_invoke_url" {
-  value = module.api-gateway-user-create.invoke_url
+  value = module.api-gateway-operation-create.invoke_url
 }
 
 

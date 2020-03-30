@@ -57,10 +57,42 @@ module "lambda-user-create" {
 }
 
 
+// ### operation-create ###
+module "archiver-operation-create" {
+  source = "./modules/archiver"
+  source_dir = "../../functions/operation_create"
+  output_path = "../../tmp/build/operation_create.zip"
+}
+
+module "s3-operation-create-object" {
+  source  = "./modules/aws/s3/object"
+  bucket_name = module.s3-functions.bucket_name
+  object_key = "functions/operation_create.zip"
+  local_file_path = module.archiver-operation-create.output_path
+}
+
+module "lambda-operation-create" {
+  source  = "./modules/aws/lambda"
+  s3_bucket = module.s3-functions.bucket_name
+  s3_key = module.s3-operation-create-object.object_key
+  function_name = "operation_create"
+  handler = "main.lambda_handler"
+  region = "eu-central-1"
+  account_id = "110266633125"
+}
+
+
 // ### api-gateway ###
-module "api-gateway-user-create" {
+module "api-gateway-operation-create" {
   source  = "./modules/aws/api_gateway"
   api_name = "scalable-microservice-demo"
-  lambda_invoke_arn = module.lambda-user-create.invoke_arn
-  path_part = "user-create"
+  lambda_invoke_arn = module.lambda-operation-create.invoke_arn
+  path_part = "operation-create"
+  http_method = "POST"
+}
+
+
+// ### kinesis ###
+module "kinesis" {
+  source  = "./modules/aws/kinesis"
 }
