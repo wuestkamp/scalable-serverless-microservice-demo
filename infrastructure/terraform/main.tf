@@ -54,10 +54,12 @@ module "function-operation-create" {
   bucket_name = module.s3-functions.bucket_name
   execute-api-region = "eu-central-1"
   execute-api-account_id = "110266633125"
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
 module "function-user-create" {
   source = "./components/functions/user_create"
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis.arn
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
 }

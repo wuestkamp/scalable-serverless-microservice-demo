@@ -17,6 +17,7 @@ module "lambda" {
   s3_key = module.s3-operation-create-object.object_key
   function_name = "operation_create"
   handler = "main.lambda_handler"
+  log_policy_arn = var.log_policy_arn
 }
 
 resource "aws_iam_policy" "policy" {
@@ -53,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "test-attach" {
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda.function_name
+  function_name = module.lambda.function_name
   principal     = "apigateway.amazonaws.com"
 
   # More: http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-control-access-using-iam-policies-to-invoke-api.html

@@ -17,8 +17,7 @@ module "lambda" {
   s3_key = module.s3-user-create-object.object_key
   function_name = "user_create"
   handler = "main.lambda_handler"
-  region = "eu-central-1"
-  account_id = "110266633125"
+  log_policy_arn = var.log_policy_arn
 }
 
 resource "aws_lambda_event_source_mapping" "mapping" {

@@ -19,6 +19,13 @@ EOF
 
 }
 
+
+
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role       = aws_iam_role.iam_for_lambda.name
+  policy_arn = var.log_policy_arn
+}
+
 resource "aws_lambda_function" "lambda" {
   s3_bucket     = var.s3_bucket
   s3_key        = var.s3_key
