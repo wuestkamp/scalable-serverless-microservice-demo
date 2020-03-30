@@ -1,15 +1,11 @@
-variable "s3_bucket" {
-  type = string
-}
+variable "s3_bucket" {}
 
-variable "s3_key" {
-  type = string
-}
+variable "s3_key" {}
 
-variable "function_name" {
-  type = string
-}
+variable "function_name" {}
 
-variable "handler" {
-  type = string
-}
+variable "handler" {}
+
+variable "region" {}
+
+variable "account_id" {}

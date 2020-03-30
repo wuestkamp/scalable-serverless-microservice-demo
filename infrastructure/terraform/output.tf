@@ -1,38 +1,43 @@
 output "dynamodb-user-service-table-arn" {
   description = "Table Arn"
-  value       = "${module.dynamodb-user-service.table_arn}"
+  value       = module.dynamodb-user-service.table_arn
 }
 
 output "dynamodb-user-service-table-name" {
   description = "Table name"
-  value       = "${module.dynamodb-user-service.table_name}"
+  value       = module.dynamodb-user-service.table_name
 }
 
 output "dynamodb-user-service-stream-arm" {
-  value       = "${module.dynamodb-user-service.stream_arn}"
+  value       = module.dynamodb-user-service.stream_arn
 }
 
 output "dynamodb-user-service-stream-label" {
-  value       = "${module.dynamodb-user-service.stream_label}"
+  value       = module.dynamodb-user-service.stream_label
 }
 
 
 output "dynamodb-operation-service-table-arn" {
   description = "Table Arn"
-  value       = "${module.dynamodb-operation-service.table_arn}"
+  value       = module.dynamodb-operation-service.table_arn
 }
 
 output "dynamodb-operation-service-table-name" {
   description = "Table name"
-  value       = "${module.dynamodb-operation-service.table_name}"
+  value       = module.dynamodb-operation-service.table_name
 }
 
 output "dynamodb-operation-service-stream-arm" {
-  value       = "${module.dynamodb-operation-service.stream_arn}"
+  value       = module.dynamodb-operation-service.stream_arn
 }
 
 output "dynamodb-operation-service-stream-label" {
-  value       = "${module.dynamodb-operation-service.stream_label}"
+  value       = module.dynamodb-operation-service.stream_label
+}
+
+
+output "api_gateway_invoke_url" {
+  value = module.api-gateway-user-create.invoke_url
 }
 
 
