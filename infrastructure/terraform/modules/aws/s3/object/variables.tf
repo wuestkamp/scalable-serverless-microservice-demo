@@ -2,7 +2,7 @@ variable "bucket_name" {
   type = string
 }
 
-variable "object_name" {
+variable "object_key" {
   type = string
 }
 
