@@ -1,0 +1,7 @@
+.idea
+*.tfstate
+*.tfstate.backup
+.terraform
+/.env.*
+/auth
+.DS_Store
