@@ -54,6 +54,7 @@ module "lambda-user-create" {
   handler = "main.lambda_handler"
   region = "eu-central-1"
   account_id = "110266633125"
+  event_source_arn = module.kinesis.arn
 }
 
 
@@ -79,6 +80,7 @@ module "lambda-operation-create" {
   handler = "main.lambda_handler"
   region = "eu-central-1"
   account_id = "110266633125"
+  event_source_arn = module.kinesis.arn
 }
 
 

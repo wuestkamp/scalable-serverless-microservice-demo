@@ -9,3 +9,5 @@ variable "handler" {}
 variable "region" {}
 
 variable "account_id" {}
+
+variable "event_source_arn" {}
