@@ -22,6 +22,29 @@ module "dynamodb-operation-service" {
   table_name = "operation_service"
 }
 
+
+module "s3-user-create" {
+  source  = "./modules/aws/s3/bucket"
+  bucket_name = "wuestkamp-scalable-microservice-demo-user-create"
+}
+
+module "s3-user-create-object" {
+  source  = "./modules/aws/s3/object"
+  bucket_name = "wuestkamp-scalable-microservice-demo-user-create"
+  object_name = "main.py"
+  local_file_path = "../../functions/user_create/main.py"
+}
+
+
+module "lambda-user-create" {
+  source  = "./modules/aws/lambda"
+}
+
+
+
+
+
+
 //module "elasticsearch" {
 //  source  = "./modules/aws/elasticsearch"
 //}
