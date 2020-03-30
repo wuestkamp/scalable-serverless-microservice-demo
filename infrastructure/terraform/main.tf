@@ -32,63 +32,11 @@ module "s3-functions" {
 }
 
 
-// ### user-create ###
-module "archiver-user-create" {
-  source = "./modules/archiver"
-  source_dir = "../../functions/user_create"
-  output_path = "../../tmp/build/user_create.zip"
-}
-
-module "s3-user-create-object" {
-  source  = "./modules/aws/s3/object"
-  bucket_name = module.s3-functions.bucket_name
-  object_key = "functions/user_create.zip"
-  local_file_path = module.archiver-user-create.output_path
-}
-
-module "lambda-user-create" {
-  source  = "./modules/aws/lambda"
-  s3_bucket = module.s3-functions.bucket_name
-  s3_key = module.s3-user-create-object.object_key
-  function_name = "user_create"
-  handler = "main.lambda_handler"
-  region = "eu-central-1"
-  account_id = "110266633125"
-  event_source_arn = module.kinesis.arn
-}
-
-
-// ### operation-create ###
-module "archiver-operation-create" {
-  source = "./modules/archiver"
-  source_dir = "../../functions/operation_create"
-  output_path = "../../tmp/build/operation_create.zip"
-}
-
-module "s3-operation-create-object" {
-  source  = "./modules/aws/s3/object"
-  bucket_name = module.s3-functions.bucket_name
-  object_key = "functions/operation_create.zip"
-  local_file_path = module.archiver-operation-create.output_path
-}
-
-module "lambda-operation-create" {
-  source  = "./modules/aws/lambda"
-  s3_bucket = module.s3-functions.bucket_name
-  s3_key = module.s3-operation-create-object.object_key
-  function_name = "operation_create"
-  handler = "main.lambda_handler"
-  region = "eu-central-1"
-  account_id = "110266633125"
-  event_source_arn = module.kinesis.arn
-}
-
-
 // ### api-gateway ###
 module "api-gateway-operation-create" {
   source  = "./modules/aws/api_gateway"
   api_name = "scalable-microservice-demo"
-  lambda_invoke_arn = module.lambda-operation-create.invoke_arn
+  lambda_invoke_arn = module.function-operation-create.invoke_arn
   path_part = "operation-create"
   http_method = "POST"
 }
@@ -97,4 +45,19 @@ module "api-gateway-operation-create" {
 // ### kinesis ###
 module "kinesis" {
   source  = "./modules/aws/kinesis"
+}
+
+
+// ### functions ###
+module "function-operation-create" {
+  source = "./components/functions/operation_create"
+  bucket_name = module.s3-functions.bucket_name
+  execute-api-region = "eu-central-1"
+  execute-api-account_id = "110266633125"
+}
+
+module "function-user-create" {
+  source = "./components/functions/user_create"
+  bucket_name = module.s3-functions.bucket_name
+  event_source_kinesis_arn = module.kinesis.arn
 }
