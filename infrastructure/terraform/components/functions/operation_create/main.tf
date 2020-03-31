@@ -1,20 +1,21 @@
-module "archiver-operation-create" {
+module "archiver" {
   source = "../../../modules/archiver"
   source_dir = "../../functions/operation_create"
   output_path = "../../tmp/build/operation_create.zip"
 }
 
-module "s3-operation-create-object" {
+module "s3-object" {
   source  = "../../../modules/aws/s3/object"
   bucket_name = var.bucket_name
   object_key = "functions/operation_create.zip"
-  local_file_path = module.archiver-operation-create.output_path
+  local_file_path = module.archiver.output_path
 }
 
 module "lambda" {
   source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
-  s3_key = module.s3-operation-create-object.object_key
+  s3_key = module.s3-object.object_key
+  s3_object_version = module.s3-object.version_id
   function_name = "operation_create"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn

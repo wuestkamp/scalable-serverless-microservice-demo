@@ -1,20 +1,21 @@
-module "archiver-operation-get" {
+module "archiver" {
   source = "../../../modules/archiver"
   source_dir = "../../functions/operation_get"
   output_path = "../../tmp/build/operation_get.zip"
 }
 
-module "s3-operation-get-object" {
+module "s3-object" {
   source  = "../../../modules/aws/s3/object"
   bucket_name = var.bucket_name
   object_key = "functions/operation_get.zip"
-  local_file_path = module.archiver-operation-get.output_path
+  local_file_path = module.archiver.output_path
 }
 
 module "lambda" {
   source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
-  s3_key = module.s3-operation-get-object.object_key
+  s3_key = module.s3-object.object_key
+  s3_object_version = module.s3-object.version_id
   function_name = "operation_get"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn

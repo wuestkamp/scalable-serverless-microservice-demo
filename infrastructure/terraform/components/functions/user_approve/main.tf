@@ -1,20 +1,21 @@
-module "archiver-user-approve" {
+module "archiver" {
   source = "../../../modules/archiver"
   source_dir = "../../functions/user_approve"
   output_path = "../../tmp/build/user_approve.zip"
 }
 
-module "s3-user-approve-object" {
+module "s3-object" {
   source  = "../../../modules/aws/s3/object"
   bucket_name = var.bucket_name
   object_key = "functions/user_approve.zip"
-  local_file_path = module.archiver-user-approve.output_path
+  local_file_path = module.archiver.output_path
 }
 
 module "lambda" {
   source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
-  s3_key = module.s3-user-approve-object.object_key
+  s3_key = module.s3-object.object_key
+  s3_object_version = module.s3-object.version_id
   function_name = "user_approve"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn

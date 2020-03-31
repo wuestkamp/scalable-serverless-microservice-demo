@@ -32,6 +32,7 @@ resource "aws_iam_role_policy_attachment" "AWSXrayFullAccess" {
 resource "aws_lambda_function" "lambda" {
   s3_bucket     = var.s3_bucket
   s3_key        = var.s3_key
+  s3_object_version = var.s3_object_version
   function_name = var.function_name
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = var.handler

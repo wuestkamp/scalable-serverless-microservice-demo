@@ -2,6 +2,8 @@ variable "s3_bucket" {}
 
 variable "s3_key" {}
 
+variable "s3_object_version" {}
+
 variable "function_name" {}
 
 variable "handler" {}

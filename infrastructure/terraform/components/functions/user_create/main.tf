@@ -1,20 +1,21 @@
-module "archiver-user-create" {
+module "archiver" {
   source = "../../../modules/archiver"
   source_dir = "../../functions/user_create"
   output_path = "../../tmp/build/user_create.zip"
 }
 
-module "s3-user-create-object" {
+module "s3-object" {
   source  = "../../../modules/aws/s3/object"
   bucket_name = var.bucket_name
   object_key = "functions/user_create.zip"
-  local_file_path = module.archiver-user-create.output_path
+  local_file_path = module.archiver.output_path
 }
 
 module "lambda" {
   source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
-  s3_key = module.s3-user-create-object.object_key
+  s3_key = module.s3-object.object_key
+  s3_object_version = module.s3-object.version_id
   function_name = "user_create"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn
