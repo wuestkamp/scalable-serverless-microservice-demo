@@ -21,13 +21,16 @@ def user_create(msg):
     user['uuid'] = str(uuid_lib.uuid4())
     user['approved'] = 'pending'
 
-    # result = mongodb_collection.insert_one(user.copy())
-    # print(f'DynamoDB insert: {result.inserted_id}')
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('user_service')
+    table.put_item(
+       Item=user
+    )
+    print(f'DynamoDB inserted')
 
     msg['data'] = user
     send_message('user-approve', msg)
-    # kafka.create_message(topic_user_approve, msg)
-    # logging.info(f'send user approval for msg:{msg}')
+    print(f'send user approval for msg:{msg}')
 
 
 def send_message(operation_name, data):
