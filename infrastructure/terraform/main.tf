@@ -43,8 +43,24 @@ module "api-gateway-operation-create" {
 
 
 // ### kinesis ###
-module "kinesis" {
+module "kinesis-user-create" {
   source  = "./modules/aws/kinesis"
+  name = "scalable-microservice-user-create"
+}
+
+module "kinesis-user-create-response" {
+  source  = "./modules/aws/kinesis"
+  name = "scalable-microservice-user-create-response"
+}
+
+module "kinesis-user-approve" {
+  source  = "./modules/aws/kinesis"
+  name = "scalable-microservice-user-approve"
+}
+
+module "kinesis-user-approve-response" {
+  source  = "./modules/aws/kinesis"
+  name = "scalable-microservice-approve-response"
 }
 
 
@@ -60,6 +76,6 @@ module "function-operation-create" {
 module "function-user-create" {
   source = "./components/functions/user_create"
   bucket_name = module.s3-functions.bucket_name
-  event_source_kinesis_arn = module.kinesis.arn
+  event_source_kinesis_arn = module.kinesis-user-create.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
 }

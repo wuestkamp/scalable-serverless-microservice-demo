@@ -2,6 +2,10 @@ output "api_gateway_invoke_url" {
   value = module.api-gateway-operation-create.invoke_url
 }
 
+output "command_call_api" {
+  value = "curl -X POST -H 'Content-Type: application/json' -d '{\"name\": \"hans\"}' \"${module.api-gateway-operation-create.invoke_url}/operation-create\""
+}
+
 //output "dynamodb-user-service-table-arn" {
 //  description = "Table Arn"
 //  value       = module.dynamodb-user-service.table_arn
