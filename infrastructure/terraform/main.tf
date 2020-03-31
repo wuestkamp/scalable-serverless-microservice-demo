@@ -75,7 +75,7 @@ module "kinesis-user-approve" {
 
 module "kinesis-user-approve-response" {
   source  = "./modules/aws/kinesis"
-  name = "scalable-microservice-approve-response"
+  name = "scalable-microservice-user-approve-response"
 }
 
 
@@ -100,5 +100,12 @@ module "function-user-create" {
   source = "./components/functions/user_create"
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis-user-create.arn
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
+module "function-user-approve" {
+  source = "./components/functions/user_approve"
+  bucket_name = module.s3-functions.bucket_name
+  event_source_kinesis_arn = module.kinesis-user-approve.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
 }

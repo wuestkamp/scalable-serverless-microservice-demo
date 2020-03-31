@@ -32,4 +32,5 @@ resource "aws_lambda_function" "lambda" {
   handler       = var.handler
 
   runtime = "python3.8"
+  timeout = var.timeout
 }
