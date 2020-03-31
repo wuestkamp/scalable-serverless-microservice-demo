@@ -2,8 +2,12 @@ output "api_gateway_invoke_url" {
   value = module.api-gateway-operation-create.invoke_url
 }
 
-output "command_call_api" {
+output "api_call_operation_create" {
   value = "curl -X POST -H 'Content-Type: application/json' -d '{\"name\": \"hans\"}' \"${module.api-gateway-operation-create.invoke_url}/operation-create\""
+}
+
+output "api_call_operation_get" {
+  value = "curl -X POST -H 'Content-Type: application/json' -d '{\"uuid\": \"XXX\"}' \"${module.api-gateway-operation-get.invoke_url}/operation-get\""
 }
 
 //output "dynamodb-user-service-table-arn" {

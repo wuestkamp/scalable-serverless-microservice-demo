@@ -33,11 +33,26 @@ module "s3-functions" {
 
 
 // ### api-gateway ###
+module "api-gateway" {
+  source  = "./modules/aws/api_gateway/rest_api"
+  api_name = "scalable-microservice"
+}
+
 module "api-gateway-operation-create" {
-  source  = "./modules/aws/api_gateway"
-  api_name = "scalable-microservice-demo"
+  source  = "./modules/aws/api_gateway/resource"
+  api_id = module.api-gateway.id
+  api_root_resource_id = module.api-gateway.root_resource_id
   lambda_invoke_arn = module.function-operation-create.invoke_arn
   path_part = "operation-create"
+  http_method = "POST"
+}
+
+module "api-gateway-operation-get" {
+  source  = "./modules/aws/api_gateway/resource"
+  api_id = module.api-gateway.id
+  api_root_resource_id = module.api-gateway.root_resource_id
+  lambda_invoke_arn = module.function-operation-get.invoke_arn
+  path_part = "operation-get"
   http_method = "POST"
 }
 
@@ -67,6 +82,14 @@ module "kinesis-user-approve-response" {
 // ### functions ###
 module "function-operation-create" {
   source = "./components/functions/operation_create"
+  bucket_name = module.s3-functions.bucket_name
+  execute-api-region = "eu-central-1"
+  execute-api-account_id = "110266633125"
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
+module "function-operation-get" {
+  source = "./components/functions/operation_get"
   bucket_name = module.s3-functions.bucket_name
   execute-api-region = "eu-central-1"
   execute-api-account_id = "110266633125"
