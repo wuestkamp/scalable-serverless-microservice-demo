@@ -19,8 +19,8 @@ def user_create_response(msg):
 
     user = msg['data']
 
-    user_mongo = user.copy()
-    table.put_item(Item=user_mongo)
+    user_dynamodb = user.copy()
+    table.put_item(Item=user_dynamodb)
     print(f'MongoDB user updated')
 
     msg['data'] = user

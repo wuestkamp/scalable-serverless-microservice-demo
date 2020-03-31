@@ -96,6 +96,13 @@ module "function-operation-get" {
   log_policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
+module "function-operation-update" {
+  source = "./components/functions/operation_update"
+  bucket_name = module.s3-functions.bucket_name
+  event_source_kinesis_arn = module.kinesis-user-create-response.arn
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
 module "function-user-create" {
   source = "./components/functions/user_create"
   bucket_name = module.s3-functions.bucket_name
