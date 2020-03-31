@@ -12,7 +12,7 @@ module "s3-user-approve-object" {
 }
 
 module "lambda" {
-  source  = "../../../modules/aws/lambda"
+  source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
   s3_key = module.s3-user-approve-object.object_key
   function_name = "user_approve"

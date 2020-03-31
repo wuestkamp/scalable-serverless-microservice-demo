@@ -80,6 +80,12 @@ module "kinesis-user-approve-response" {
 
 
 // ### functions ###
+module "lambda-layer-aws-xray-sdk" {
+  source = "./modules/aws/lambda/layer"
+  layer_name = "aws-xray-sdk"
+  filename = "../../functions/layers/aws-xray-sdk/python.zip"
+}
+
 module "function-operation-create" {
   source = "./components/functions/operation_create"
   bucket_name = module.s3-functions.bucket_name

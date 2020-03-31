@@ -12,7 +12,7 @@ module "s3-operation-create-object" {
 }
 
 module "lambda" {
-  source  = "../../../modules/aws/lambda"
+  source  = "../../../modules/aws/lambda/function"
   s3_bucket = var.bucket_name
   s3_key = module.s3-operation-create-object.object_key
   function_name = "operation_create"
