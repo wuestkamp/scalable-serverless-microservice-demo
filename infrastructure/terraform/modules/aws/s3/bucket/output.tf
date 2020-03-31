@@ -1,3 +1,3 @@
 output "bucket_name" {
-  value = var.bucket_name
+  value = aws_s3_bucket.b.bucket
 }
