@@ -18,6 +18,7 @@ module "lambda" {
   function_name = "operation_get"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn
+  layers = var.layers
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonDynamoDBFullAccess" {

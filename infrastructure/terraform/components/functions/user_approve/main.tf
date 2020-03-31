@@ -19,6 +19,7 @@ module "lambda" {
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn
   timeout = 15
+  layers = var.layers
 }
 
 resource "aws_lambda_event_source_mapping" "mapping" {

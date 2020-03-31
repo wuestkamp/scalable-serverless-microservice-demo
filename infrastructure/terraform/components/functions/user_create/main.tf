@@ -18,6 +18,7 @@ module "lambda" {
   function_name = "user_create"
   handler = "main.lambda_handler"
   log_policy_arn = var.log_policy_arn
+  layers = var.layers
 }
 
 resource "aws_lambda_event_source_mapping" "mapping" {

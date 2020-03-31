@@ -92,6 +92,7 @@ module "function-operation-create" {
   execute-api-region = "eu-central-1"
   execute-api-account_id = "110266633125"
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
 
 module "function-operation-get" {
@@ -100,6 +101,7 @@ module "function-operation-get" {
   execute-api-region = "eu-central-1"
   execute-api-account_id = "110266633125"
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
 
 module "function-operation-update" {
@@ -107,6 +109,7 @@ module "function-operation-update" {
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis-user-create-response.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
 
 module "function-user-create" {
@@ -114,6 +117,7 @@ module "function-user-create" {
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis-user-create.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
 
 module "function-user-create-response" {
@@ -121,6 +125,7 @@ module "function-user-create-response" {
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis-user-approve-response.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
 
 module "function-user-approve" {
@@ -128,4 +133,5 @@ module "function-user-approve" {
   bucket_name = module.s3-functions.bucket_name
   event_source_kinesis_arn = module.kinesis-user-approve.arn
   log_policy_arn = aws_iam_policy.lambda_logging.arn
+  layers = [module.lambda-layer-aws-xray-sdk.arn]
 }

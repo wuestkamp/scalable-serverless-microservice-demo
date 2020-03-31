@@ -11,3 +11,8 @@ variable "log_policy_arn" {}
 variable "timeout" {
   default = 3
 }
+
+variable "layers" {
+  type = "list"
+  default = []
+}

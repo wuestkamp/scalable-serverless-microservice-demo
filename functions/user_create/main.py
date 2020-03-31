@@ -3,6 +3,9 @@ import base64
 import boto3
 from datetime import datetime
 import uuid as uuid_lib
+from aws_xray_sdk.core import patch
+patch(['boto3'])
+
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('user_service')

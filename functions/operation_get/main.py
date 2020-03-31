@@ -1,5 +1,7 @@
 import json
 import boto3
+from aws_xray_sdk.core import patch
+patch(['boto3'])
 
 
 def lambda_handler(event, context):

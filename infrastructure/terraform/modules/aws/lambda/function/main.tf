@@ -42,4 +42,6 @@ resource "aws_lambda_function" "lambda" {
   tracing_config {
     mode = "Active"
   }
+
+  layers = var.layers
 }

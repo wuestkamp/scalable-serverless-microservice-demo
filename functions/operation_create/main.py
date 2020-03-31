@@ -1,12 +1,7 @@
 import json
 import boto3
 import uuid as uuid_lib
-import sys
-sys.path.insert(0, './packages')
-
-from aws_xray_sdk.core import xray_recorder
 from aws_xray_sdk.core import patch
-
 patch(['boto3'])
 
 

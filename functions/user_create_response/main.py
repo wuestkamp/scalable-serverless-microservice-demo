@@ -1,6 +1,9 @@
 import json
 import base64
 import boto3
+from aws_xray_sdk.core import patch
+patch(['boto3'])
+
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('user_service')
