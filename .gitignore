@@ -4,5 +4,4 @@
 .terraform
 /.env.*
 /auth
-/tmp
 .DS_Store
