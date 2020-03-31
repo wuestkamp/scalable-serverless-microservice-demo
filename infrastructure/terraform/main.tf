@@ -103,6 +103,13 @@ module "function-user-create" {
   log_policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
+module "function-user-create-response" {
+  source = "./components/functions/user_create_response"
+  bucket_name = module.s3-functions.bucket_name
+  event_source_kinesis_arn = module.kinesis-user-approve-response.arn
+  log_policy_arn = aws_iam_policy.lambda_logging.arn
+}
+
 module "function-user-approve" {
   source = "./components/functions/user_approve"
   bucket_name = module.s3-functions.bucket_name

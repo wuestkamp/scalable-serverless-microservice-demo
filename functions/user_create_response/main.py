@@ -1,8 +1,6 @@
 import json
 import base64
 import boto3
-from datetime import datetime
-import uuid as uuid_lib
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('user_service')
@@ -13,23 +11,28 @@ def lambda_handler(event, context):
         print(e['kinesis']['data'])
         data = json.loads(base64.b64decode(e['kinesis']['data']))
         print(data)
-        user_create(data)
+        user_create_response(data)
 
 
-def user_create(msg):
-    print(f'creating user for msg:{msg}')
+def user_create_response(msg):
+    print(f'approving user for msg:{msg}')
 
     user = msg['data']
-    user['createdAt'] = str(datetime.now())
-    user['uuid'] = str(uuid_lib.uuid4())
-    user['approved'] = 'pending'
 
-    table.put_item(Item=user)
-    print(f'DynamoDB inserted')
+    user_mongo = user.copy()
+    table.put_item(Item=user_mongo)
+    print(f'MongoDB user updated')
 
     msg['data'] = user
-    send_message('user-approve', msg)
-    print(f'send user approval for msg:{msg}')
+
+    if user['approved'] == 'true':
+        msg['response']['state'] = 'completed'
+    elif user['approved'] == 'false':
+        msg['response']['state'] = 'failed'
+        msg['response']['error'] = 'approval failed'
+
+    send_message('user-create-response', msg)
+    print(f'updated user for msg:{msg}')
 
 
 def send_message(operation_name, data):
