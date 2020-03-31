@@ -34,6 +34,6 @@ def send_message(operation_name, data):
     client = boto3.client('kinesis')
     return client.put_record(
         StreamName='scalable-microservice-'+operation_name,
-        Data=json.dumps(msg),
+        Data=json.dumps(data),
         PartitionKey='1'
     )

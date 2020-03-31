@@ -23,8 +23,8 @@ output "command_call_api" {
 //output "dynamodb-user-service-stream-label" {
 //  value       = module.dynamodb-user-service.stream_label
 //}
-//
-//
+
+
 //output "dynamodb-operation-service-table-arn" {
 //  description = "Table Arn"
 //  value       = module.dynamodb-operation-service.table_arn

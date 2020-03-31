@@ -20,35 +20,41 @@ module "lambda" {
   log_policy_arn = var.log_policy_arn
 }
 
-resource "aws_iam_policy" "policy" {
-  name = "kinesis_policy_operation_create"
+//resource "aws_iam_policy" "policy" {
+//  name = "kinesis_policy_operation_create"
+//
+//  policy = <<EOF
+//{
+//  "Version": "2012-10-17",
+//  "Statement": [
+//    {
+//      "Effect": "Allow",
+//      "Action": [
+//          "kinesis:GetRecords",
+//          "kinesis:GetShardIterator",
+//          "kinesis:CreateStream",
+//          "kinesis:DeleteStream",
+//          "kinesis:DescribeStream",
+//          "kinesis:ListStreams",
+//          "kinesis:PutRecord",
+//          "kinesis:PutRecords",
+//          ""
+//      ],
+//      "Resource": "*"
+//    }
+//  ]
+//}
+//EOF
+//}
 
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-          "kinesis:GetRecords",
-          "kinesis:GetShardIterator",
-          "kinesis:CreateStream",
-          "kinesis:DeleteStream",
-          "kinesis:DescribeStream",
-          "kinesis:ListStreams",
-          "kinesis:PutRecord",
-          "kinesis:PutRecords"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "test-attach" {
+resource "aws_iam_role_policy_attachment" "AmazonDynamoDBFullAccess" {
   role       = module.lambda.role_name
-  policy_arn = aws_iam_policy.policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonKinesisFullAccess" {
+  role       = module.lambda.role_name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonKinesisFullAccess"
 }
 
 resource "aws_lambda_permission" "apigw_lambda" {

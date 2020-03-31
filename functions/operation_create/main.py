@@ -18,9 +18,15 @@ def lambda_handler(event, context):
         }
     }
 
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table('operation_service')
+    table.put_item(
+        Item=msg
+    )
+
     client = boto3.client('kinesis')
     response = client.put_record(
-        StreamName='scalable-microservice-'+operation_name,
+        StreamName='scalable-microservice-' + operation_name,
         Data=json.dumps(msg),
         PartitionKey='1'
     )
@@ -29,3 +35,4 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('Hello from operation_create!')
     }
+
