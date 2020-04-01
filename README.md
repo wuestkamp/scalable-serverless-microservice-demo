@@ -6,7 +6,7 @@ Medium article: TODO
 ## setup
 ```
 cp .env .env.local
-# fill in credentials on .env.local
+# fill in credentials in .env.local
 
 ./run/install.sh
 ```
