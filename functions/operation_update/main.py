@@ -1,8 +1,8 @@
 import json
 import base64
 import boto3
-from aws_xray_sdk.core import patch
-patch(['boto3'])
+from aws_xray_sdk.core import patch_all
+patch_all()
 
 
 dynamodb = boto3.resource('dynamodb')

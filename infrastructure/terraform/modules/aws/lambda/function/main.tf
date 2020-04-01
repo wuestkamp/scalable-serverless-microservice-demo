@@ -45,4 +45,5 @@ resource "aws_lambda_function" "lambda" {
   }
 
   layers = var.layers
+  publish = true
 }

@@ -1,6 +1,6 @@
 resource "aws_kinesis_stream" "stream" {
   name             = var.name
-  shard_count      = 1
+  shard_count      = 200
   retention_period = 48
 
   shard_level_metrics = [

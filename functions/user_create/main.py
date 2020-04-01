@@ -3,8 +3,8 @@ import base64
 import boto3
 from datetime import datetime
 import uuid as uuid_lib
-from aws_xray_sdk.core import patch
-patch(['boto3'])
+from aws_xray_sdk.core import patch_all
+patch_all()
 
 
 dynamodb = boto3.resource('dynamodb')
@@ -40,5 +40,5 @@ def send_message(operation_name, data):
     return client.put_record(
         StreamName='scalable-microservice-'+operation_name,
         Data=json.dumps(data),
-        PartitionKey='1'
+        PartitionKey=data['uuid']
     )
