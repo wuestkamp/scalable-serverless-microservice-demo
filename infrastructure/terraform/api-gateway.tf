@@ -19,4 +19,5 @@ module "api-gateway-operation-get" {
   lambda_invoke_arn = module.function-operation-get.invoke_arn
   path_part = "operation-get"
   http_method = "POST"
+  wait_for = module.api-gateway-operation-create.invoke_url
 }

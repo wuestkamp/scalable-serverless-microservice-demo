@@ -7,3 +7,7 @@ variable "lambda_invoke_arn" {}
 variable "path_part" {}
 
 variable "http_method" {}
+
+variable "wait_for" {
+  default = ""
+}
