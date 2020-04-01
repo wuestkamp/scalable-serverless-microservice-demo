@@ -1,7 +1,7 @@
 import json
 import base64
 import boto3
-import time
+# import time
 from aws_xray_sdk.core import patch_all
 patch_all()
 
@@ -17,7 +17,7 @@ def lambda_handler(event, context):
 def user_approve(msg):
     print(f'approving user for msg:{msg}')
 
-    time.sleep(5)
+    # time.sleep(5)
 
     user = msg['data']
     user['approved'] = 'true'
@@ -33,5 +33,5 @@ def send_message(operation_name, data):
     return client.put_record(
         StreamName='scalable-microservice-'+operation_name,
         Data=json.dumps(data),
-        PartitionKey=data['uuid']
+        PartitionKey=str(data['uuid'])
     )

@@ -30,7 +30,7 @@ def lambda_handler(event, context):
     response = client.put_record(
         StreamName='scalable-microservice-' + operation_name,
         Data=json.dumps(msg),
-        PartitionKey=uuid
+        PartitionKey=str(msg['uuid'])
     )
 
     return {

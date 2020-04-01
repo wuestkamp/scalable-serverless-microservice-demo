@@ -43,5 +43,5 @@ def send_message(operation_name, data):
     return client.put_record(
         StreamName='scalable-microservice-'+operation_name,
         Data=json.dumps(data),
-        PartitionKey=data['uuid']
+        PartitionKey=str(data['uuid'])
     )

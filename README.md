@@ -4,6 +4,7 @@ Medium article: TODO
 
 
 ## setup
+Creation takes ~1 hour because of the number of Kinesis shards. You can reduce this in `infrastructure/terraform/modules/aws/kinesis/main.tf`.
 ```
 cp .env .env.local
 # fill in credentials on .env.local

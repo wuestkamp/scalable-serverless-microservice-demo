@@ -8,7 +8,7 @@ module "function-operation-create" {
   source = "./components/functions/operation_create"
   bucket_name = module.s3-functions.bucket_name
   execute-api-region = "eu-central-1"
-  execute-api-account_id = "110266633125"
+  execute-api-account_id = var.aws_account_id
   log_policy_arn = aws_iam_policy.lambda_logging.arn
   layers = [module.lambda-layer-aws-xray-sdk.arn]
 }
@@ -17,7 +17,7 @@ module "function-operation-get" {
   source = "./components/functions/operation_get"
   bucket_name = module.s3-functions.bucket_name
   execute-api-region = "eu-central-1"
-  execute-api-account_id = "110266633125"
+  execute-api-account_id = var.aws_account_id
   log_policy_arn = aws_iam_policy.lambda_logging.arn
   layers = [module.lambda-layer-aws-xray-sdk.arn]
 }

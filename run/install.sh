@@ -7,7 +7,7 @@ if [[ ! -f "$FILE" ]]; then
     exit
 fi
 source .env.local
-export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION
+export AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION TF_VAR_aws_account_id
 
 
 ####### terraform #######
