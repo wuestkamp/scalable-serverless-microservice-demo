@@ -1,6 +1,6 @@
 # Scalable Serverless Microservice Demo AWS Kinesis Lambda
 
-Medium article: TODO
+Medium article: https://medium.com/@wuestkamp/scalable-serverless-microservice-demo-aws-lambda-kinesis-terraform-cbe6036bf5ac?sk=074614683a6641cab9b6067929bdc660
 
 
 ## setup
